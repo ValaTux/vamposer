@@ -2,7 +2,7 @@ using Gee;
 
 namespace Vamposer {
     public class DependencyResolver : Object {
-        private const string REMOTE_ALIAS_URL = "https://raw.githubusercontent.com/ValaFoundation/vamposer/master/vamposer.aliases.json";
+        private const string REMOTE_ALIAS_URL = "https://raw.githubusercontent.com/ValaTux/vamposer/master/vamposer.aliases.json";
         private static HashMap<string, string>? cached_aliases = null;
         private static ArrayList<string>? configured_alias_sources = null;
         private static HashMap<string, string>? configured_aliases = null;

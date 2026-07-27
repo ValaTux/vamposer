@@ -1,6 +1,6 @@
 namespace AppTests {
     using GLib;
-    using ValaFoundation.Testcases;
+    using ValaTux.Testcases;
     using Vamposer;
 
     public class LoggerTest : BaseTest {

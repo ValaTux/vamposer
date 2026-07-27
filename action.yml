@@ -40,12 +40,12 @@ runs:
 
         version='${{ inputs.version }}'
         if [[ "$version" == "latest" ]]; then
-          base_url='https://github.com/ValaFoundation/vamposer/releases/latest/download'
+          base_url='https://github.com/ValaTux/vamposer/releases/latest/download'
         else
           if [[ "$version" != v* ]]; then
             version="v${version}"
           fi
-          base_url="https://github.com/ValaFoundation/vamposer/releases/download/${version}"
+          base_url="https://github.com/ValaTux/vamposer/releases/download/${version}"
         fi
 
         tmp_dir="${RUNNER_TEMP}/vamposer-setup"
@@ -82,12 +82,12 @@ runs:
 
         $version = '${{ inputs.version }}'
         if ($version -eq 'latest') {
-          $baseUrl = 'https://github.com/ValaFoundation/vamposer/releases/latest/download'
+          $baseUrl = 'https://github.com/ValaTux/vamposer/releases/latest/download'
         } else {
           if (-not $version.StartsWith('v')) {
             $version = "v$version"
           }
-          $baseUrl = "https://github.com/ValaFoundation/vamposer/releases/download/$version"
+          $baseUrl = "https://github.com/ValaTux/vamposer/releases/download/$version"
         }
 
         $tmpDir = Join-Path $env:RUNNER_TEMP 'vamposer-setup'

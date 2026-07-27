@@ -1,6 +1,6 @@
 namespace AppTests {
     using GLib;
-    using ValaFoundation.Testcases;
+    using ValaTux.Testcases;
     using Vamposer;
 
     public class ConfigTest : BaseTest {
@@ -25,10 +25,10 @@ namespace AppTests {
   "version": "1.2.3",
   "description": "A test app",
   "dependencies": {
-    "github.com/ValaFoundation/testcases": "master"
+    "github.com/ValaTux/testcases": "master"
   },
   "dependencies-dev": {
-    "github.com/ValaFoundation/downloader-lib": "master"
+    "github.com/ValaTux/downloader-lib": "master"
   },
   "system_dependencies": {
     "glib-2.0": "*"
@@ -50,9 +50,9 @@ namespace AppTests {
             assert (config.version == "1.2.3");
             assert (config.description == "A test app");
             assert (config.dependencies.size == 1);
-            assert (config.dependencies.get ("github.com/ValaFoundation/testcases") == "master");
+            assert (config.dependencies.get ("github.com/ValaTux/testcases") == "master");
             assert (config.dev_dependencies.size == 1);
-            assert (config.dev_dependencies.get ("github.com/ValaFoundation/downloader-lib") == "master");
+            assert (config.dev_dependencies.get ("github.com/ValaTux/downloader-lib") == "master");
             assert (config.system_dependencies.get ("glib-2.0") == "*");
         }
 
@@ -61,7 +61,7 @@ namespace AppTests {
             try {
                 path = write_temp_json ("""
 {
-  "dependencies": ["github.com/ValaFoundation/testcases"]
+  "dependencies": ["github.com/ValaTux/testcases"]
 }
 """);
             } catch (Error e) {
@@ -211,10 +211,10 @@ namespace AppTests {
             string path = "%s/vamposer-config-roundtrip-%s.json".printf (Environment.get_tmp_dir (), Uuid.string_random ());
 
             var original = PackageConfig.create_empty ();
-            original.dependencies.set ("github.com/ValaFoundation/testcases", "master");
-            original.dev_dependencies.set ("github.com/ValaFoundation/downloader-lib", "main");
+            original.dependencies.set ("github.com/ValaTux/testcases", "master");
+            original.dev_dependencies.set ("github.com/ValaTux/downloader-lib", "main");
             original.system_dependencies.set ("glib-2.0", "*");
-            original.aliases.set ("testcases", "github.com/ValaFoundation/testcases");
+            original.aliases.set ("testcases", "github.com/ValaTux/testcases");
             original.alias_sources.add ("https://example.com/vamposer.aliases.json");
 
             try {
@@ -230,10 +230,10 @@ namespace AppTests {
               assert_not_reached ();
             }
 
-            assert (loaded.dependencies.get ("github.com/ValaFoundation/testcases") == "master");
-            assert (loaded.dev_dependencies.get ("github.com/ValaFoundation/downloader-lib") == "main");
+            assert (loaded.dependencies.get ("github.com/ValaTux/testcases") == "master");
+            assert (loaded.dev_dependencies.get ("github.com/ValaTux/downloader-lib") == "main");
             assert (loaded.system_dependencies.get ("glib-2.0") == "*");
-            assert (loaded.aliases.get ("testcases") == "github.com/ValaFoundation/testcases");
+            assert (loaded.aliases.get ("testcases") == "github.com/ValaTux/testcases");
             assert (loaded.alias_sources.size == 1);
             assert (loaded.alias_sources.get (0) == "https://example.com/vamposer.aliases.json");
           }

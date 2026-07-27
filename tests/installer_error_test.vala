@@ -1,6 +1,6 @@
 namespace AppTests {
     using GLib;
-    using ValaFoundation.Testcases;
+    using ValaTux.Testcases;
     using Vamposer;
 
     public class InstallerErrorTest : BaseTest {
@@ -140,7 +140,7 @@ namespace AppTests {
                 try {
                     Installer.logs_enabled = false;
                     var installer = new Installer ();
-                    installer.remove_dependency (config_path, "github.com/ValaFoundation/testcases");
+                    installer.remove_dependency (config_path, "github.com/ValaTux/testcases");
                 } catch (Error e) {
                     failed = true;
                     assert (e.message.contains ("Dependency not found"));
@@ -171,7 +171,7 @@ namespace AppTests {
 {
   "dependencies": {},
   "dependencies-dev": {
-    "github.com/ValaFoundation/testcases": "master"
+    "github.com/ValaTux/testcases": "master"
   },
   "system_dependencies": {
     "glib-2.0": "*"
@@ -186,7 +186,7 @@ namespace AppTests {
                 try {
                     Installer.logs_enabled = false;
                     var installer = new Installer ();
-                    installer.update (config_path, "github.com/ValaFoundation/testcases", false);
+                    installer.update (config_path, "github.com/ValaTux/testcases", false);
                 } catch (Error e) {
                     failed = true;
                     assert (e.message.contains ("Dependency not found"));

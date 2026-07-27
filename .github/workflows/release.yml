@@ -82,7 +82,7 @@ jobs:
           Section: utils
           Priority: optional
           Architecture: amd64
-          Maintainer: ValaFoundation <team@valafoundation.github.io>
+          Maintainer: ValaTux <team@ValaTux.github.io>
           Depends: libc6, libglib2.0-0, libgee-0.8-2, libjson-glib-1.0-0
           Description: Dependency manager for Vala projects
            Vamposer manages git and system dependencies for Vala/Meson apps.
@@ -176,9 +176,9 @@ jobs:
           Release:        ${PKG_RELEASE}%{?dist}
           Summary:        Dependency manager for Vala projects
           License:        Apache-2.0
-          Packager:       ValaFoundation
-          Vendor:         ValaFoundation
-          URL:            https://github.com/ValaFoundation/vamposer
+          Packager:       ValaTux
+          Vendor:         ValaTux
+          URL:            https://github.com/ValaTux/vamposer
           Source0:        vamposer
           BuildArch:      x86_64
           Requires:       glib2, libgee, json-glib
@@ -197,7 +197,7 @@ jobs:
           /usr/bin/vamposer
 
           %changelog
-          * Fri Jul 11 2026 ValaFoundation - ${PKG_VERSION}-${PKG_RELEASE}
+          * Fri Jul 11 2026 ValaTux - ${PKG_VERSION}-${PKG_RELEASE}
           - Automated release build
           EOF
           rpmbuild -bb --define "_topdir $(pwd)/rpmbuild" rpmbuild/SPECS/vamposer.spec
@@ -366,14 +366,14 @@ jobs:
       - name: Create Flatpak manifest
         run: |
           mkdir -p packaging/flatpak
-          cat > packaging/flatpak/io.github.valafoundation.vamposer.yml << 'EOF'
-          app-id: io.github.valafoundation.vamposer
+          cat > packaging/flatpak/io.github.valatux.vamposer.yml << 'EOF'
+          app-id: io.github.valatux.vamposer
           runtime: org.gnome.Platform
           runtime-version: '47'
           sdk: org.gnome.Sdk
           command: vamposer
           build-commands:
-            - install -Dm644 packaging/flatpak/io.github.valafoundation.vamposer.metainfo.xml /app/share/metainfo/io.github.valafoundation.vamposer.metainfo.xml
+            - install -Dm644 packaging/flatpak/io.github.valatux.vamposer.metainfo.xml /app/share/metainfo/io.github.valatux.vamposer.metainfo.xml
           finish-args:
             - --share=network
           modules:
@@ -390,9 +390,9 @@ jobs:
       - name: Build Flatpak bundle
         run: |
           VERSION="${GITHUB_REF_NAME:-dev-${GITHUB_RUN_NUMBER}}"
-          flatpak-builder --force-clean flatpak-build packaging/flatpak/io.github.valafoundation.vamposer.yml
+          flatpak-builder --force-clean flatpak-build packaging/flatpak/io.github.valatux.vamposer.yml
           flatpak build-export flatpak-repo flatpak-build
-          flatpak build-bundle flatpak-repo "vamposer-${VERSION}-flatpak.flatpak" io.github.valafoundation.vamposer
+          flatpak build-bundle flatpak-repo "vamposer-${VERSION}-flatpak.flatpak" io.github.valatux.vamposer
 
       - name: Upload Flatpak artifacts
         uses: actions/upload-artifact@v7
@@ -401,7 +401,7 @@ jobs:
           if-no-files-found: error
           path: |
             vamposer-*-flatpak.flatpak
-            packaging/flatpak/io.github.valafoundation.vamposer.yml
+            packaging/flatpak/io.github.valatux.vamposer.yml
 
   publish-release:
     name: Publish GitHub Release

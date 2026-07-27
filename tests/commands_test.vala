@@ -1,6 +1,6 @@
 namespace AppTests {
     using GLib;
-    using ValaFoundation.Testcases;
+    using ValaTux.Testcases;
     using Vamposer;
     using Vamposer.Commands;
 
@@ -346,7 +346,7 @@ namespace AppTests {
                 var command = new RequireCommand ();
                 var usage_called = false;
                 var exit_code = command.execute (
-                    new string[] {"vamposer", "require", "github.com/ValaFoundation/testcases"},
+                    new string[] {"vamposer", "require", "github.com/ValaTux/testcases"},
                     () => { usage_called = true; }
                 );
 
@@ -356,7 +356,7 @@ namespace AppTests {
 
                 try {
                     var config = PackageConfig.load (Path.build_filename (project_dir, "vamposer.json"));
-                    assert (config.dependencies.get ("github.com/ValaFoundation/testcases") == "*");
+                    assert (config.dependencies.get ("github.com/ValaTux/testcases") == "*");
                 } catch (Error e) {
                     assert_not_reached ();
                 }
@@ -380,7 +380,7 @@ namespace AppTests {
                 var command = new RequireCommand ();
                 var usage_called = false;
                 var exit_code = command.execute (
-                    new string[] {"vamposer", "require", "github.com/ValaFoundation/testcases", "master", config_path},
+                    new string[] {"vamposer", "require", "github.com/ValaTux/testcases", "master", config_path},
                     () => { usage_called = true; }
                 );
 
@@ -389,7 +389,7 @@ namespace AppTests {
 
                 try {
                     var config = PackageConfig.load (config_path);
-                    assert (config.dependencies.get ("github.com/ValaFoundation/testcases") == "master");
+                    assert (config.dependencies.get ("github.com/ValaTux/testcases") == "master");
                 } catch (Error e) {
                     assert_not_reached ();
                 }
@@ -413,7 +413,7 @@ namespace AppTests {
                 var command = new RequireCommand ();
                 var usage_called = false;
                 var exit_code = command.execute (
-                    new string[] {"vamposer", "require", "--dev", "github.com/ValaFoundation/testcases", "master", config_path},
+                    new string[] {"vamposer", "require", "--dev", "github.com/ValaTux/testcases", "master", config_path},
                     () => { usage_called = true; }
                 );
 
@@ -422,8 +422,8 @@ namespace AppTests {
 
                 try {
                     var config = PackageConfig.load (config_path);
-                    assert (config.dev_dependencies.get ("github.com/ValaFoundation/testcases") == "master");
-                    assert (!config.dependencies.has_key ("github.com/ValaFoundation/testcases"));
+                    assert (config.dev_dependencies.get ("github.com/ValaTux/testcases") == "master");
+                    assert (!config.dependencies.has_key ("github.com/ValaTux/testcases"));
                 } catch (Error e) {
                     assert_not_reached ();
                 }
@@ -483,7 +483,7 @@ namespace AppTests {
 {
   "dependencies": {},
   "dependencies-dev": {
-    "github.com/ValaFoundation/testcases": "master"
+    "github.com/ValaTux/testcases": "master"
   },
   "system_dependencies": {
     "glib-2.0": "*"
@@ -497,7 +497,7 @@ namespace AppTests {
                 var command = new RemoveCommand ();
                 var usage_called = false;
                 var exit_code = command.execute (
-                    new string[] {"vamposer", "remove", "--dev", "github.com/ValaFoundation/testcases", config_path},
+                    new string[] {"vamposer", "remove", "--dev", "github.com/ValaTux/testcases", config_path},
                     () => { usage_called = true; }
                 );
 
@@ -506,7 +506,7 @@ namespace AppTests {
 
                 try {
                     var config = PackageConfig.load (config_path);
-                    assert (!config.dev_dependencies.has_key ("github.com/ValaFoundation/testcases"));
+                    assert (!config.dev_dependencies.has_key ("github.com/ValaTux/testcases"));
                 } catch (Error e) {
                     assert_not_reached ();
                 }
@@ -543,7 +543,7 @@ namespace AppTests {
                 var command = new UpdateCommand ();
                 var usage_called = false;
                 var exit_code = command.execute (
-                    new string[] {"vamposer", "update", "github.com/ValaFoundation/testcases", config_path},
+                    new string[] {"vamposer", "update", "github.com/ValaTux/testcases", config_path},
                     () => { usage_called = true; }
                 );
 
@@ -657,7 +657,7 @@ namespace AppTests {
                 var command = new UpdateCommand ();
                 var usage_called = false;
                 var exit_code = command.execute (
-                    new string[] {"vamposer", "update", "--dev", "github.com/ValaFoundation/testcases", config_path},
+                    new string[] {"vamposer", "update", "--dev", "github.com/ValaTux/testcases", config_path},
                     () => { usage_called = true; }
                 );
 

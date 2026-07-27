@@ -22,7 +22,7 @@ namespace Vamposer {
 
     public class Installer : Object {
         public static bool logs_enabled { get; set; default = true; }
-        internal const string RELEASE_DOWNLOAD_BASE = "https://github.com/ValaFoundation/vamposer/releases/latest/download";
+        internal const string RELEASE_DOWNLOAD_BASE = "https://github.com/ValaTux/vamposer/releases/latest/download";
         internal CommandRunner command_runner;
 
         private InitOperation init_operation;

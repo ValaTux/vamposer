@@ -3,17 +3,17 @@ using Gee;
 
 int main (string[] args) {
 
-    ValaFoundation.Testcases.BaseTest.saved_commands = new Gee.ArrayList<ValaFoundation.Testcases.TestCommand> ();
+    ValaTux.Testcases.BaseTest.saved_commands = new Gee.ArrayList<ValaTux.Testcases.TestCommand> ();
     Test.init (ref args);
 
-    ValaFoundation.Testcases.register_test_suite<AppTests.ConfigTest> ();
-    ValaFoundation.Testcases.register_test_suite<AppTests.ConsoleStyleTest> ();
-    ValaFoundation.Testcases.register_test_suite<AppTests.LoggerTest> ();
-    ValaFoundation.Testcases.register_test_suite<AppTests.DependencyResolverTest> ();
-    ValaFoundation.Testcases.register_test_suite<AppTests.InstallerTest> ();
-    ValaFoundation.Testcases.register_test_suite<AppTests.InstallerErrorTest> ();
-    ValaFoundation.Testcases.register_test_suite<AppTests.CommandsTest> ();
-    ValaFoundation.Testcases.register_test_suite<AppTests.SystemDependencyInstallerTest> ();
+    ValaTux.Testcases.register_test_suite<AppTests.ConfigTest> ();
+    ValaTux.Testcases.register_test_suite<AppTests.ConsoleStyleTest> ();
+    ValaTux.Testcases.register_test_suite<AppTests.LoggerTest> ();
+    ValaTux.Testcases.register_test_suite<AppTests.DependencyResolverTest> ();
+    ValaTux.Testcases.register_test_suite<AppTests.InstallerTest> ();
+    ValaTux.Testcases.register_test_suite<AppTests.InstallerErrorTest> ();
+    ValaTux.Testcases.register_test_suite<AppTests.CommandsTest> ();
+    ValaTux.Testcases.register_test_suite<AppTests.SystemDependencyInstallerTest> ();
 
 
     return Test.run ();

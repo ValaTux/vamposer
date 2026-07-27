@@ -1,10 +1,10 @@
 {
-  "name": "com.github.ValaFoundation.my-app",
+  "name": "com.github.valatux.my-app",
   "version": "1.0.0",
   "description": "Example app using Vamposer",
   "dependencies": {
-    "github.com/ValaFoundation/testcases": "master",
-    "github.com/ValaFoundation/downloader-lib": "master"
+    "github.com/ValaTux/testcases": "master",
+    "github.com/ValaTux/downloader-lib": "master"
   },
   "system_dependencies": {
     "gtk4": ">=4.10",

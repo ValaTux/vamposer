@@ -30,22 +30,22 @@
 Dependency manager for Vala projects inspired by Composer/Go modules and integrated with Meson subprojects.
 
 
-![GitHub Release](https://img.shields.io/github/v/release/ValaFoundation/vamposer?style=for-the-badge)
-![GitHub Release Date](https://img.shields.io/github/release-date/ValaFoundation/vamposer?style=for-the-badge)
-![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/ValaFoundation/vamposer/total?style=for-the-badge)
-[![GitHub License](https://img.shields.io/github/license/ValaFoundation/vamposer?style=for-the-badge)](LICENSE)
+![GitHub Release](https://img.shields.io/github/v/release/ValaTux/vamposer?style=for-the-badge)
+![GitHub Release Date](https://img.shields.io/github/release-date/ValaTux/vamposer?style=for-the-badge)
+![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/ValaTux/vamposer/total?style=for-the-badge)
+[![GitHub License](https://img.shields.io/github/license/ValaTux/vamposer?style=for-the-badge)](LICENSE)
 
 
-![GitHub top language](https://img.shields.io/github/languages/top/ValaFoundation/vamposer?style=for-the-badge)
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/ValaFoundation/vamposer/ci.yml?style=for-the-badge)
-[![Codecov](https://img.shields.io/codecov/c/github/ValaFoundation/vamposer?style=for-the-badge)](https://app.codecov.io/gh/ValaFoundation/vamposer)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/ValaFoundation/vamposer/latest?style=for-the-badge)
+![GitHub top language](https://img.shields.io/github/languages/top/ValaTux/vamposer?style=for-the-badge)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/ValaTux/vamposer/ci.yml?style=for-the-badge)
+[![Codecov](https://img.shields.io/codecov/c/github/ValaTux/vamposer?style=for-the-badge)](https://app.codecov.io/gh/ValaTux/vamposer)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/ValaTux/vamposer/latest?style=for-the-badge)
 
 
-![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/ValaFoundation/vamposer?style=for-the-badge)
-![GitHub Issues or Pull Requests](https://img.shields.io/github/issues-closed/ValaFoundation/vamposer?style=for-the-badge)
-![GitHub Issues or Pull Requests](https://img.shields.io/github/issues-pr/ValaFoundation/vamposer?style=for-the-badge)
-![GitHub Issues or Pull Requests](https://img.shields.io/github/issues-pr-closed/ValaFoundation/vamposer?style=for-the-badge)
+![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/ValaTux/vamposer?style=for-the-badge)
+![GitHub Issues or Pull Requests](https://img.shields.io/github/issues-closed/ValaTux/vamposer?style=for-the-badge)
+![GitHub Issues or Pull Requests](https://img.shields.io/github/issues-pr/ValaTux/vamposer?style=for-the-badge)
+![GitHub Issues or Pull Requests](https://img.shields.io/github/issues-pr-closed/ValaTux/vamposer?style=for-the-badge)
 
 
 ## 📚 Contents
@@ -95,9 +95,9 @@ Manual install (curl + chmod):
 
 ```bash
 curl -fL -o vamposer-linux \
-	https://github.com/ValaFoundation/vamposer/releases/latest/download/vamposer-linux
+	https://github.com/ValaTux/vamposer/releases/latest/download/vamposer-linux
 curl -fL -o vamposer-linux.sha256 \
-	https://github.com/ValaFoundation/vamposer/releases/latest/download/vamposer-linux.sha256
+	https://github.com/ValaTux/vamposer/releases/latest/download/vamposer-linux.sha256
 sha256sum -c vamposer-linux.sha256
 chmod +x vamposer-linux
 sudo install -m 0755 vamposer-linux /usr/local/bin/vamposer
@@ -133,8 +133,8 @@ New-Item -ItemType Directory -Force -Path $InstallDir | Out-Null
 $ExePath = Join-Path $InstallDir 'vamposer.exe'
 $ChecksumPath = Join-Path $InstallDir 'vamposer.exe.sha256'
 
-Invoke-WebRequest -Uri 'https://github.com/ValaFoundation/vamposer/releases/latest/download/vamposer.exe' -OutFile $ExePath
-Invoke-WebRequest -Uri 'https://github.com/ValaFoundation/vamposer/releases/latest/download/vamposer.exe.sha256' -OutFile $ChecksumPath
+Invoke-WebRequest -Uri 'https://github.com/ValaTux/vamposer/releases/latest/download/vamposer.exe' -OutFile $ExePath
+Invoke-WebRequest -Uri 'https://github.com/ValaTux/vamposer/releases/latest/download/vamposer.exe.sha256' -OutFile $ChecksumPath
 
 $ExpectedHash = (Get-Content $ChecksumPath).Split(' ')[0].Trim().ToLower()
 $ActualHash = (Get-FileHash -Algorithm SHA256 $ExePath).Hash.ToLower()
@@ -187,7 +187,7 @@ jobs:
       - uses: actions/checkout@v7
 
       - name: Setup Vamposer
-        uses: ValaFoundation/vamposer@v0.7.1
+        uses: ValaTux/vamposer@v0.7.1
         with:
           version: latest
 
@@ -278,25 +278,25 @@ NO_COLOR=1 vamposer install
 Add or update a dependency in config:
 
 ```bash
-vamposer require github.com/ValaFoundation/testcases master
+vamposer require github.com/ValaTux/testcases master
 ```
 
 Package aliases source:
 
 ```json
 {
-	"ValaFoundation/testcases": "github.com/ValaFoundation/testcases",
+	"ValaTux/testcases": "github.com/ValaTux/testcases",
 	"YourOrg/your-repo": "github.com/YourOrg/your-repo"
 }
 ```
 
-Vamposer loads aliases from `https://raw.githubusercontent.com/ValaFoundation/vamposer/master/vamposer.aliases.json` (before automatic host expansion). Alias targets are expected as repository IDs (`owner/repo`, `github.com/owner/repo`, or full URL).
+Vamposer loads aliases from `https://raw.githubusercontent.com/ValaTux/vamposer/master/vamposer.aliases.json` (before automatic host expansion). Alias targets are expected as repository IDs (`owner/repo`, `github.com/owner/repo`, or full URL).
 
 Global aliases are also fetched from:
 
-`https://github.com/ValaFoundation/vamposer` (`vamposer.aliases.json` on `master` via raw.githubusercontent.com)
+`https://github.com/ValaTux/vamposer` (`vamposer.aliases.json` on `master` via raw.githubusercontent.com)
 
-Want your library/package alias included globally? Open a PR against `vamposer.aliases.json` in this repository or write to [[Alias] Requests](https://github.com/ValaFoundation/vamposer/discussions/3).
+Want your library/package alias included globally? Open a PR against `vamposer.aliases.json` in this repository or write to [[Alias] Requests](https://github.com/ValaTux/vamposer/discussions/3).
 
 Project-level aliases in `vamposer.json` are also supported.
 Use `aliases` for direct key/value overrides and `alias_sources` for one or more extra remote JSON alias lists.
@@ -304,19 +304,19 @@ Use `aliases` for direct key/value overrides and `alias_sources` for one or more
 Add or update a development dependency in config:
 
 ```bash
-vamposer require --dev github.com/ValaFoundation/testcases master
+vamposer require --dev github.com/ValaTux/testcases master
 ```
 
 Remove a dependency from config:
 
 ```bash
-vamposer remove github.com/ValaFoundation/testcases
+vamposer remove github.com/ValaTux/testcases
 ```
 
 Remove a development dependency from config:
 
 ```bash
-vamposer remove --dev github.com/ValaFoundation/testcases
+vamposer remove --dev github.com/ValaTux/testcases
 ```
 
 Force refresh all dependencies (re-clone):
@@ -334,13 +334,13 @@ vamposer update --dev
 Force refresh one dependency:
 
 ```bash
-vamposer update github.com/ValaFoundation/testcases
+vamposer update github.com/ValaTux/testcases
 ```
 
 Force refresh one development dependency:
 
 ```bash
-vamposer update --dev github.com/ValaFoundation/testcases
+vamposer update --dev github.com/ValaTux/testcases
 ```
 
 Custom config path:
@@ -377,19 +377,19 @@ Current official release artifacts target `x86_64` only. Support for additional 
 
 ```json
 {
-	"name": "com.github.ValaFoundation.my-app",
+	"name": "com.github.ValaTux.my-app",
 	"version": "1.0.0",
 	"description": "Example app using Vamposer",
 	"dependencies": {
-		"github.com/ValaFoundation/testcases": "master",
-		"github.com/ValaFoundation/downloader-lib": "master"
+		"github.com/ValaTux/testcases": "master",
+		"github.com/ValaTux/downloader-lib": "master"
 	},
 	"dependencies-dev": {
-		"github.com/ValaFoundation/dev-tools": "master"
+		"github.com/ValaTux/dev-tools": "master"
 	},
 	"aliases": {
 		"my-lib": "github.com/MyOrg/my-lib",
-		"ValaFoundation/testcases": "gitlab.com/MyOrg/testcases-fork"
+		"ValaTux/testcases": "gitlab.com/MyOrg/testcases-fork"
 	},
 	"alias_sources": [
 		"https://example.com/vamposer.aliases.json",

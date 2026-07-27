@@ -1,6 +1,6 @@
 namespace AppTests {
     using GLib;
-    using ValaFoundation.Testcases;
+    using ValaTux.Testcases;
     using Vamposer;
 
     public class InstallerTest : BaseTest {
@@ -196,10 +196,10 @@ namespace AppTests {
   "name": "com.example.app",
   "version": "0.0.1",
   "dependencies": {
-    "github.com/ValaFoundation/downloader-lib": "master"
+    "github.com/ValaTux/downloader-lib": "master"
   },
   "dependencies-dev": {
-    "github.com/ValaFoundation/testcases": "master"
+    "github.com/ValaTux/testcases": "master"
   },
   "system_dependencies": {
     "glib-2.0": "*"
@@ -262,10 +262,10 @@ namespace AppTests {
   "name": "com.example.app",
   "version": "0.0.1",
   "dependencies": {
-    "github.com/ValaFoundation/downloader-lib": "master"
+    "github.com/ValaTux/downloader-lib": "master"
   },
   "dependencies-dev": {
-    "github.com/ValaFoundation/testcases": "master"
+    "github.com/ValaTux/testcases": "master"
   },
   "system_dependencies": {
     "glib-2.0": "*"
@@ -324,7 +324,7 @@ namespace AppTests {
   "name": "com.example.app",
   "version": "0.0.1",
   "dependencies": {
-    "github.com/ValaFoundation/testcases": "master"
+    "github.com/ValaTux/testcases": "master"
   },
   "system_dependencies": {
     "glib-2.0": "*"
@@ -397,7 +397,7 @@ namespace AppTests {
   "name": "com.example.app",
   "version": "0.0.1",
   "dependencies": {
-    "github.com/ValaFoundation/testcases": "master"
+    "github.com/ValaTux/testcases": "master"
   },
   "system_dependencies": {
     "glib-2.0": "*"
@@ -485,7 +485,7 @@ filename = cache-manager/subprojects/vala_testcases.wrap
                 try {
                     Installer.logs_enabled = false;
                     var installer = new Installer ();
-                    installer.require_dependency (config_path, "github.com/ValaFoundation/testcases", "master");
+                    installer.require_dependency (config_path, "github.com/ValaTux/testcases", "master");
                 } catch (Error e) {
                     assert_not_reached ();
                 } finally {
@@ -494,7 +494,7 @@ filename = cache-manager/subprojects/vala_testcases.wrap
 
                 try {
                     var config = PackageConfig.load (config_path);
-                    assert (config.dependencies.get ("github.com/ValaFoundation/testcases") == "master");
+                    assert (config.dependencies.get ("github.com/ValaTux/testcases") == "master");
                 } catch (Error e) {
                     assert_not_reached ();
                 }
@@ -520,7 +520,7 @@ filename = cache-manager/subprojects/vala_testcases.wrap
                 try {
                     Installer.logs_enabled = false;
                     var installer = new Installer ();
-                    installer.require_dependency (config_path, "github.com/ValaFoundation/testcases", "master", true);
+                    installer.require_dependency (config_path, "github.com/ValaTux/testcases", "master", true);
                 } catch (Error e) {
                     assert_not_reached ();
                 } finally {
@@ -529,8 +529,8 @@ filename = cache-manager/subprojects/vala_testcases.wrap
 
                 try {
                     var config = PackageConfig.load (config_path);
-                    assert (config.dev_dependencies.get ("github.com/ValaFoundation/testcases") == "master");
-                    assert (!config.dependencies.has_key ("github.com/ValaFoundation/testcases"));
+                    assert (config.dev_dependencies.get ("github.com/ValaTux/testcases") == "master");
+                    assert (!config.dependencies.has_key ("github.com/ValaTux/testcases"));
                 } catch (Error e) {
                     assert_not_reached ();
                 }
@@ -556,11 +556,11 @@ filename = cache-manager/subprojects/vala_testcases.wrap
                     FileUtils.set_contents (config_path, """
 {
     "dependencies-dev": {
-        "github.com/ValaFoundation/testcases": "master"
+        "github.com/ValaTux/testcases": "master"
     },
   "dependencies": {
-                "github.com/ValaFoundation/downloader-lib": "master",
-                "github.com/ValaFoundation/remove-me": "master"
+                "github.com/ValaTux/downloader-lib": "master",
+                "github.com/ValaTux/remove-me": "master"
   },
   "system_dependencies": {}
 }
@@ -572,7 +572,7 @@ filename = cache-manager/subprojects/vala_testcases.wrap
                 try {
                     Installer.logs_enabled = false;
                     var installer = new Installer ();
-                    installer.remove_dependency (config_path, "github.com/ValaFoundation/remove-me");
+                    installer.remove_dependency (config_path, "github.com/ValaTux/remove-me");
                 } catch (Error e) {
                     assert_not_reached ();
                 } finally {
@@ -581,9 +581,9 @@ filename = cache-manager/subprojects/vala_testcases.wrap
 
                 try {
                     var config = PackageConfig.load (config_path);
-                    assert (!config.dependencies.has_key ("github.com/ValaFoundation/remove-me"));
-                    assert (config.dependencies.has_key ("github.com/ValaFoundation/downloader-lib"));
-                    assert (config.dev_dependencies.has_key ("github.com/ValaFoundation/testcases"));
+                    assert (!config.dependencies.has_key ("github.com/ValaTux/remove-me"));
+                    assert (config.dependencies.has_key ("github.com/ValaTux/downloader-lib"));
+                    assert (config.dev_dependencies.has_key ("github.com/ValaTux/testcases"));
                 } catch (Error e) {
                     assert_not_reached ();
                 }
@@ -609,10 +609,10 @@ filename = cache-manager/subprojects/vala_testcases.wrap
                     FileUtils.set_contents (config_path, """
 {
     "dependencies-dev": {
-        "github.com/ValaFoundation/testcases": "master"
+        "github.com/ValaTux/testcases": "master"
     },
   "dependencies": {
-        "github.com/ValaFoundation/downloader-lib": "master"
+        "github.com/ValaTux/downloader-lib": "master"
   },
   "system_dependencies": {}
 }
@@ -624,7 +624,7 @@ filename = cache-manager/subprojects/vala_testcases.wrap
                 try {
                     Installer.logs_enabled = false;
                     var installer = new Installer ();
-                    installer.remove_dependency (config_path, "github.com/ValaFoundation/testcases", true);
+                    installer.remove_dependency (config_path, "github.com/ValaTux/testcases", true);
                 } catch (Error e) {
                     assert_not_reached ();
                 } finally {
@@ -633,8 +633,8 @@ filename = cache-manager/subprojects/vala_testcases.wrap
 
                 try {
                     var config = PackageConfig.load (config_path);
-                    assert (!config.dev_dependencies.has_key ("github.com/ValaFoundation/testcases"));
-                    assert (config.dependencies.has_key ("github.com/ValaFoundation/downloader-lib"));
+                    assert (!config.dev_dependencies.has_key ("github.com/ValaTux/testcases"));
+                    assert (config.dependencies.has_key ("github.com/ValaTux/downloader-lib"));
                 } catch (Error e) {
                     assert_not_reached ();
                 }
@@ -673,7 +673,7 @@ filename = cache-manager/subprojects/vala_testcases.wrap
                 try {
                     Installer.logs_enabled = false;
                     var installer = new Installer ();
-                    installer.update (config_path, "github.com/ValaFoundation/testcases");
+                    installer.update (config_path, "github.com/ValaTux/testcases");
                 } catch (Error e) {
                     failed = true;
                     assert (e.message.contains ("Dependency not found"));
@@ -718,7 +718,7 @@ filename = cache-manager/subprojects/vala_testcases.wrap
                 try {
                     Installer.logs_enabled = false;
                     var installer = new Installer ();
-                    installer.update (config_path, "github.com/ValaFoundation/testcases", true);
+                    installer.update (config_path, "github.com/ValaTux/testcases", true);
                 } catch (Error e) {
                     failed = true;
                     assert (e.message.contains ("Dependency not found"));

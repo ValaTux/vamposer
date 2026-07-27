@@ -132,7 +132,7 @@ jobs:
           Release:        1%{?dist}
           Summary:        Dependency manager for Vala projects
           License:        Apache-2.0
-          URL:            https://github.com/ValaFoundation/vamposer
+          URL:            https://github.com/ValaTux/vamposer
           Source0:        %{name}-%{version}.tar.gz
 
           BuildRequires:  meson
@@ -165,7 +165,7 @@ jobs:
           %{_bindir}/vamposer
 
           %changelog
-          * Mon Jul 13 2026 ValaFoundation <team@valafoundation.github.io> - ${VERSION}-1
+          * Mon Jul 13 2026 ValaTux <team@ValaTux.github.io> - ${VERSION}-1
           - Automated COPR release submission
           EOF
 

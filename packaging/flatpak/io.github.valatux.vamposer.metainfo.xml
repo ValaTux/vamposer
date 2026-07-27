@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="console-application">
-  <id>io.github.valafoundation.vamposer</id>
+  <id>io.github.valatux.vamposer</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>Apache-2.0</project_license>
   <name>Vamposer</name>
   <summary>Dependency manager for Vala projects</summary>
-  <developer_name>ValaFoundation</developer_name>
+  <developer_name>ValaTux</developer_name>
   <description>
     <p>Vamposer manages git and system dependencies for Vala and Meson projects.</p>
   </description>
-  <url type="homepage">https://github.com/ValaFoundation/vamposer</url>
+  <url type="homepage">https://github.com/ValaTux/vamposer</url>
 </component>

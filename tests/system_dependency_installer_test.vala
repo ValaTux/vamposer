@@ -1,6 +1,6 @@
 namespace AppTests {
     using Gee;
-    using ValaFoundation.Testcases;
+    using ValaTux.Testcases;
     using Vamposer;
     using Vamposer.PackageManagers;
 
