@@ -415,12 +415,22 @@ Current official release artifacts target `x86_64` only. Support for additional 
 
 ## 🧩 Meson integration
 
-Generated `vamposer/meson.build` (project root) defines `vamposer_deps`:
+Generated `vamposer/meson.build` (project root) defines `vamposer_deps`, `vamposer_dev_deps`, and `vamposer_all_deps`:
 
 ```meson
 vamposer_deps = [
 	dependency('testcases', fallback: ['testcases', 'testcases_dep']),
 	dependency('downloader-lib', fallback: ['downloader-lib', 'downloader_lib_dep'])
+]
+
+vamposer_dev_deps = [
+	dependency('my-test-helper', fallback: ['my-test-helper', 'my_test_helper_dep'])
+]
+
+vamposer_all_deps = [
+	dependency('testcases', fallback: ['testcases', 'testcases_dep']),
+	dependency('downloader-lib', fallback: ['downloader-lib', 'downloader_lib_dep']),
+	dependency('my-test-helper', fallback: ['my-test-helper', 'my_test_helper_dep'])
 ]
 ```
 

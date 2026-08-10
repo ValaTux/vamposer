@@ -122,6 +122,8 @@ namespace AppTests {
                 }
 
                 assert (contents.contains ("vamposer_deps = ["));
+                assert (contents.contains ("vamposer_dev_deps = ["));
+                assert (contents.contains ("vamposer_all_deps = ["));
             } finally {
                 Environment.set_current_dir (old_cwd);
             }
@@ -231,8 +233,10 @@ namespace AppTests {
                     assert_not_reached ();
                 }
 
-                assert (contents.contains ("dependency('downloader-lib'"));
-                assert (!contents.contains ("dependency('testcases'"));
+                assert (contents.contains ("vamposer_deps = [\n  dependency('downloader-lib'"));
+                assert (contents.contains ("vamposer_dev_deps = [\n]\n"));
+                assert (contents.contains ("vamposer_all_deps = [\n  dependency('downloader-lib'"));
+                assert (!contents.contains ("vamposer_deps = [\n  dependency('testcases'"));
             } finally {
                 Environment.set_current_dir (old_cwd);
             }
@@ -298,8 +302,10 @@ namespace AppTests {
                     assert_not_reached ();
                 }
 
-                assert (contents.contains ("dependency('downloader-lib'"));
-                assert (contents.contains ("dependency('testcases'"));
+                assert (contents.contains ("vamposer_deps = [\n  dependency('downloader-lib'"));
+                assert (contents.contains ("vamposer_dev_deps = [\n  dependency('testcases'"));
+                assert (contents.contains ("vamposer_all_deps = [\n  dependency('downloader-lib'"));
+                assert (contents.contains ("vamposer_all_deps = [\n  dependency('downloader-lib', fallback: ['downloader-lib', 'downloader_lib_dep']),\n  dependency('testcases'"));
             } finally {
                 Environment.set_current_dir (old_cwd);
             }
