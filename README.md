@@ -187,7 +187,7 @@ jobs:
       - uses: actions/checkout@v7
 
       - name: Setup Vamposer
-        uses: ValaTux/vamposer@v0.7.1
+        uses: ValaTux/vamposer@v0.7.4
         with:
           version: latest
 
