@@ -3,6 +3,7 @@
   "ValaTux/downloader-lib": "github.com/ValaTux/downloader-lib",
   "ValaTux/cache-manager": "github.com/ValaTux/cache-manager",
   "ValaTux/finder": "github.com/ValaTux/finder",
+  "ValaTux/monolog": "github.com/ValaTux/monolog",
   "elementary/granite": "github.com/elementary/granite",
   "GNOME/vala": "gitlab.gnome.org/GNOME/vala",
   "GNOME/glib": "gitlab.gnome.org/GNOME/glib",
