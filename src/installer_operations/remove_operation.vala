@@ -27,8 +27,10 @@ namespace Vamposer.InstallerOperations {
             installer.remove_path_if_exists (Path.build_filename ("subprojects", "%s.wrap".printf (resolved.project_name)));
             installer.remove_path_if_exists (resolved.local_directory);
 
-            var resolved_dependencies = installer.build_resolved_dependencies (config, remove_dev);
-            installer.write_vamposer_build (resolved_dependencies);
+            installer.write_vamposer_build (
+                installer.build_resolved_dependencies_for_map (config),
+                remove_dev ? installer.build_resolved_dependencies_for_map (config, true) : new Gee.ArrayList<ResolvedDependency> ()
+            );
             installer.log ("[Vamposer] Removed dependency: %s\n", source_id);
         }
     }

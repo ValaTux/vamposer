@@ -11,8 +11,10 @@ namespace Vamposer.InstallerOperations {
             }
             config.save (config_path);
 
-            var resolved_dependencies = installer.build_resolved_dependencies (config, include_dev);
-            installer.write_vamposer_build (resolved_dependencies);
+            installer.write_vamposer_build (
+                installer.build_resolved_dependencies_for_map (config),
+                include_dev ? installer.build_resolved_dependencies_for_map (config, true) : new Gee.ArrayList<ResolvedDependency> ()
+            );
             installer.log ("[Vamposer] Added dependency: %s (%s)\n", source_id, revision);
         }
     }
