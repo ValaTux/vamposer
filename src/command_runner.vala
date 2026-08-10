@@ -1,10 +1,10 @@
 namespace Vamposer {
     public class CommandRunner : Object {
-        public void run (string[] argv, string label) throws Error {
+        public virtual void run (string[] argv, string label) throws Error {
             run_stdout (argv, label);
         }
 
-        public string run_stdout (string[] argv, string label) throws Error {
+        public virtual string run_stdout (string[] argv, string label) throws Error {
             string? std_out;
             string? std_err;
             int status = 0;
@@ -27,7 +27,7 @@ namespace Vamposer {
             return std_out != null ? std_out.strip () : "";
         }
 
-        public bool command_exists (string name) {
+        public virtual bool command_exists (string name) {
             string? std_out;
             string? std_err;
             int status = 0;

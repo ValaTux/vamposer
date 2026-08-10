@@ -1,3 +1,57 @@
+namespace Vamposer {
+    private class FakeCommandRunner : CommandRunner {
+        public override void run (string[] argv, string label) throws Error {
+            if (argv.length >= 3 && argv[0] == "rm" && argv[1] == "-rf") {
+                remove_tree (argv[2]);
+                return;
+            }
+
+            if (argv.length >= 6 && argv[0] == "git" && argv[1] == "clone") {
+                var target_directory = argv[argv.length - 1];
+                DirUtils.create_with_parents (target_directory, 0755);
+                return;
+            }
+
+            base.run (argv, label);
+        }
+
+        private void remove_tree (string path) throws Error {
+            if (!FileUtils.test (path, FileTest.EXISTS)) {
+                return;
+            }
+
+            if (FileUtils.test (path, FileTest.IS_DIR)) {
+                Dir? dir = null;
+                try {
+                    dir = Dir.open (path);
+                } catch (FileError e) {
+                    throw new IOError.FAILED (e.message);
+                }
+
+                string? entry_name;
+                while ((entry_name = dir.read_name ()) != null) {
+                    if (entry_name == "." || entry_name == "..") {
+                        continue;
+                    }
+
+                    remove_tree (Path.build_filename (path, entry_name));
+                }
+
+                DirUtils.remove (path);
+                return;
+            }
+
+            FileUtils.remove (path);
+        }
+    }
+
+    private class FakeRunnerInstaller : Installer {
+        public FakeRunnerInstaller () {
+            set_command_runner (new FakeCommandRunner ());
+        }
+    }
+}
+
 namespace AppTests {
     using GLib;
     using ValaTux.Testcases;
@@ -14,6 +68,7 @@ namespace AppTests {
             add_test ("install_generates_vamposer_build_without_git", test_install_generates_build_file);
             add_test ("install_without_dev_ignores_dev_dependencies", test_install_without_dev_ignores_dev_dependencies);
             add_test ("install_with_dev_tries_dev_dependencies", test_install_with_dev_tries_dev_dependencies);
+            add_test ("install_without_dev_keeps_installed_dev_dependencies", test_install_without_dev_keeps_installed_dev_dependencies);
             add_test ("install_detects_provide_from_subproject_meson_build", test_install_detects_provide_from_subproject_meson_build);
             add_test ("install_skips_wrap_when_provide_already_exists_via_redirect", test_install_skips_wrap_when_provide_already_exists_via_redirect);
 #if !WINDOWS
@@ -24,6 +79,7 @@ namespace AppTests {
             add_test ("remove_deletes_dependency_from_config", test_remove_deletes_dependency_from_config);
             add_test ("remove_with_dev_deletes_dependency_from_dev_config", test_remove_with_dev_deletes_dependency_from_dev_config);
             add_test ("self_upgrade_fails_for_unknown_executable", test_self_upgrade_fails_for_unknown_executable);
+            add_test ("update_without_dev_keeps_installed_dev_dependencies", test_update_without_dev_keeps_installed_dev_dependencies);
             add_test ("update_fails_when_named_dependency_is_missing", test_update_missing_named_dependency);
             add_test ("update_with_dev_fails_when_named_dependency_is_missing_in_dev_scope", test_update_missing_named_dependency_in_dev_scope);
         }
@@ -305,7 +361,139 @@ namespace AppTests {
                 assert (contents.contains ("vamposer_deps = [\n  dependency('downloader-lib'"));
                 assert (contents.contains ("vamposer_dev_deps = [\n  dependency('testcases'"));
                 assert (contents.contains ("vamposer_all_deps = [\n  dependency('downloader-lib'"));
-                assert (contents.contains ("vamposer_all_deps = [\n  dependency('downloader-lib', fallback: ['downloader-lib', 'downloader_lib_dep']),\n  dependency('testcases'"));
+                assert (contents.contains (
+                    "vamposer_all_deps = [\n  dependency('downloader-lib', fallback: ['downloader-lib', 'downloader_lib_dep']),\n  dependency('testcases'"
+                ));
+            } finally {
+                Environment.set_current_dir (old_cwd);
+            }
+        }
+
+        public void test_install_without_dev_keeps_installed_dev_dependencies () {
+            var old_cwd = Environment.get_current_dir ();
+            string project_dir;
+            try {
+                project_dir = DirUtils.make_tmp ("vamposer-test-XXXXXX");
+            } catch (Error e) {
+                assert_not_reached ();
+            }
+
+            Environment.set_current_dir (project_dir);
+
+            try {
+                var config_path = Path.build_filename (project_dir, "vamposer.json");
+                try {
+                    FileUtils.set_contents (config_path, """
+{
+  "name": "com.example.app",
+  "version": "0.0.1",
+  "dependencies": {
+    "github.com/ValaTux/downloader-lib": "master"
+  },
+  "dependencies-dev": {
+    "github.com/ValaTux/testcases": "master"
+  },
+  "system_dependencies": {
+    "glib-2.0": "*"
+  }
+}
+""");
+                } catch (Error e) {
+                    assert_not_reached ();
+                }
+
+                try {
+                    Installer.logs_enabled = false;
+                    var installer = new Installer ();
+                    DirUtils.create_with_parents (Path.build_filename ("subprojects", "downloader-lib"), 0755);
+                    DirUtils.create_with_parents (Path.build_filename ("subprojects", "testcases"), 0755);
+                    installer.install (config_path, true);
+                    installer.install (config_path, false);
+                } catch (Error e) {
+                    assert_not_reached ();
+                } finally {
+                    Installer.logs_enabled = true;
+                }
+
+                var generated_path = Path.build_filename (project_dir, "subprojects", "vamposer.build");
+                assert (FileUtils.test (generated_path, FileTest.EXISTS));
+
+                string contents;
+                try {
+                    FileUtils.get_contents (generated_path, out contents);
+                } catch (Error e) {
+                    assert_not_reached ();
+                }
+
+                assert (contents.contains ("vamposer_deps = [\n  dependency('downloader-lib'"));
+                assert (contents.contains ("vamposer_dev_deps = [\n  dependency('testcases'"));
+                assert (contents.contains (
+                    "vamposer_all_deps = [\n  dependency('downloader-lib', fallback: ['downloader-lib', 'downloader_lib_dep']),\n  dependency('testcases'"
+                ));
+            } finally {
+                Environment.set_current_dir (old_cwd);
+            }
+        }
+
+        public void test_update_without_dev_keeps_installed_dev_dependencies () {
+            var old_cwd = Environment.get_current_dir ();
+            string project_dir;
+            try {
+                project_dir = DirUtils.make_tmp ("vamposer-test-XXXXXX");
+            } catch (Error e) {
+                assert_not_reached ();
+            }
+
+            Environment.set_current_dir (project_dir);
+
+            try {
+                var config_path = Path.build_filename (project_dir, "vamposer.json");
+                try {
+                    FileUtils.set_contents (config_path, """
+{
+  "name": "com.example.app",
+  "version": "0.0.1",
+  "dependencies": {
+    "github.com/ValaTux/downloader-lib": "master"
+  },
+  "dependencies-dev": {
+    "github.com/ValaTux/testcases": "master"
+  },
+  "system_dependencies": {
+    "glib-2.0": "*"
+  }
+}
+""");
+                } catch (Error e) {
+                    assert_not_reached ();
+                }
+
+                try {
+                    Installer.logs_enabled = false;
+                    var installer = new FakeRunnerInstaller ();
+                    installer.install (config_path, true);
+                    installer.update (config_path, null, false);
+                } catch (Error e) {
+                    assert_not_reached ();
+                } finally {
+                    Installer.logs_enabled = true;
+                }
+
+                var generated_path = Path.build_filename (project_dir, "subprojects", "vamposer.build");
+                assert (FileUtils.test (generated_path, FileTest.EXISTS));
+
+                string contents;
+                try {
+                    FileUtils.get_contents (generated_path, out contents);
+                } catch (Error e) {
+                    assert_not_reached ();
+                }
+
+                assert (contents.contains ("vamposer_deps = [\n  dependency('downloader-lib'"));
+                assert (contents.contains ("vamposer_dev_deps = [\n  dependency('testcases'"));
+                assert (contents.contains (
+                    "vamposer_all_deps = [\n  dependency('downloader-lib', fallback: ['downloader-lib', 'downloader_lib_dep']),\n  dependency('testcases'"
+                ));
             } finally {
                 Environment.set_current_dir (old_cwd);
             }

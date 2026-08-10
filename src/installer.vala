@@ -42,6 +42,10 @@ namespace Vamposer {
             update_operation = new UpdateOperation ();
         }
 
+        protected void set_command_runner (CommandRunner runner) {
+            command_runner = runner;
+        }
+
         public void init_config (string config_path) throws Error {
             init_operation.execute (this, config_path);
         }
@@ -71,7 +75,9 @@ namespace Vamposer {
             var config = PackageConfig.load (config_path);
             DependencyResolver.configure_alias_overrides (config.alias_sources, config.aliases);
             var project_dependencies = build_resolved_dependencies_for_map (config);
-            var dev_dependencies = include_dev ? build_resolved_dependencies_for_map (config, true) : new ArrayList<ResolvedDependency> ();
+            var dev_dependencies = include_dev
+                ? build_resolved_dependencies_for_map (config, true)
+                : build_installed_resolved_dependencies_for_map (config, true);
             var all_dependencies = collect_all_dependencies (config, include_dev);
 
             ensure_subprojects_directory ();
@@ -113,6 +119,18 @@ namespace Vamposer {
             }
 
             return resolved_dependencies;
+        }
+
+        internal ArrayList<ResolvedDependency> build_installed_resolved_dependencies_for_map (PackageConfig config, bool dev_dependencies = false) {
+            var resolved_dependencies = build_resolved_dependencies_for_map (config, dev_dependencies);
+            var installed_dependencies = new ArrayList<ResolvedDependency> ();
+            foreach (var dependency in resolved_dependencies) {
+                if (FileUtils.test (dependency.local_directory, FileTest.IS_DIR)) {
+                    installed_dependencies.add (dependency);
+                }
+            }
+
+            return installed_dependencies;
         }
 
         internal HashMap<string, string> collect_all_dependencies (PackageConfig config, bool include_dev) {
