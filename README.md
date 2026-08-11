@@ -567,7 +567,7 @@ Thank you to everyone supporting the project!
 
 <!-- ACTION-GITHUB-SPONSORS:START -->
 *(Sponsors will be listed here. Join them by becoming a [sponsor](https://github.com/sponsors/JanGalek)!)*
-<!-- github-sponsors-end -->
+<!-- ACTION-GITHUB-SPONSORS:END -->
 
 ## 📄 License
 
