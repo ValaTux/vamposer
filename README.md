@@ -544,6 +544,31 @@ or
 make tests
 ```
 
+---
+
+## 💖 Supporting Vamposer
+
+Vamposer is an open-source project created and maintained to improve the Vala ecosystem. Building and supporting package management infrastructure requires dedicated time for updates, features, and registry maintenance.
+
+If Vamposer helps you build Vala applications or speeds up your workflow, please consider supporting its development:
+
+[![GitHub Sponsors](https://img.shields.io/badge/Sponsor_on_GitHub-%E2%9D%A4-ea4aaa?style=for-the-badge&logo=github)](https://github.com/sponsors/JanGalek)
+
+### How your sponsorship helps:
+* 🚀 **Accelerates new features:** Dedicated time for registry development, CLI improvements, and Meson build integration.
+* 🛠️ **Long-term maintenance:** Ensures fast bug fixes, compatibility updates, and stable releases.
+* 📚 **Documentation & Guides:** Better guides and examples for community adoption.
+
+---
+
+### ✨ Sponsors & Backers
+
+Thank you to everyone supporting the project!
+
+<!-- ACTION-GITHUB-SPONSORS:START -->
+*(Sponsors will be listed here. Join them by becoming a [sponsor](https://github.com/sponsors/JanGalek)!)*
+<!-- github-sponsors-end -->
+
 ## 📄 License
 
 Apache-2.0 (see `LICENSE` and `NOTICE`).
