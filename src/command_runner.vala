@@ -10,7 +10,7 @@ namespace Vamposer {
             int status = 0;
 
             try {
-                Process.spawn_sync (null, argv, null, SpawnFlags.SEARCH_PATH, null, out std_out, out std_err, out status);
+                Process.spawn_sync (null, argv, null, SpawnFlags.SEARCH_PATH | SpawnFlags.LEAVE_DESCRIPTORS_OPEN, null, out std_out, out std_err, out status);
             } catch (SpawnError e) {
                 throw new IOError.FAILED ("Unable to execute command '%s': %s".printf (label, e.message));
             }
@@ -34,9 +34,9 @@ namespace Vamposer {
 
             try {
 #if WINDOWS
-                Process.spawn_sync (null, new string[] {"cmd", "/c", "where", name}, null, SpawnFlags.SEARCH_PATH, null, out std_out, out std_err, out status);
+                Process.spawn_sync (null, new string[] {"cmd", "/c", "where", name}, null, SpawnFlags.SEARCH_PATH | SpawnFlags.LEAVE_DESCRIPTORS_OPEN, null, out std_out, out std_err, out status);
 #else
-                Process.spawn_sync (null, new string[] {"which", name}, null, SpawnFlags.SEARCH_PATH, null, out std_out, out std_err, out status);
+                Process.spawn_sync (null, new string[] {"which", name}, null, SpawnFlags.SEARCH_PATH | SpawnFlags.LEAVE_DESCRIPTORS_OPEN, null, out std_out, out std_err, out status);
 #endif
             } catch (SpawnError e) {
                 return false;
